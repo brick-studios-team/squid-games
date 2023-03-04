@@ -17,4 +17,7 @@ public class GamePlayer {
     public Vector3 getLocation() {
         return new Vector3(this.bukkitPlayer.getLocation());
     }
+    public void sendTitle(String key) {
+
+    }
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.regorland.squidgames.arena.Arena;
 import net.regorland.squidgames.game.BaseGame;
 import net.regorland.squidgames.task.BasicRepeatableTask;
+import net.regorland.squidgames.task.DelayedTask;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -24,7 +25,17 @@ public class RedGreenLightGame extends BaseGame {
     @Override
     public void onStart() {
         new BasicRepeatableTask(() -> {
-            canMove = !canMove;
+            if (canMove) {
+                this.arena.doGlobally(target -> target.sendTitle(this.arena.getResourceKey("red_light.title")));
+                this.arena.doGlobally(target -> target.getBukkitPlayer().getInventory().clear());
+            } else {
+                this.arena.doGlobally(target -> target.sendTitle(this.arena.getResourceKey("green_light.title")));
+                this.arena.doGlobally(target -> target.getBukkitPlayer().getInventory().clear());
+            }
+
+            new DelayedTask(() -> {
+                canMove = !canMove;
+            }, 20);
         }, 0, () -> ThreadLocalRandom.current().nextInt(3, 5));
     }
 
