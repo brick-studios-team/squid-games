@@ -2,8 +2,10 @@ package net.regorland.squidgames.region;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.bukkit.util.Vector;
 
+@Accessors(chain = true)
 public class Vector3 {
     @Getter @Setter private double x;
     @Getter @Setter private double y;
@@ -16,9 +18,25 @@ public class Vector3 {
     }
 
     public Vector3 clone() {
-        return new Vector3(this.getX(), this.getX(), this.getZ());
+        try {
+            return (Vector3) super.clone();
+        } catch (CloneNotSupportedException exception) {
+            throw new RuntimeException(exception);
+        }
     }
     public Vector toBukkitVector() {
         return new Vector(this.getX(), this.getX(), this.getZ());
+    }
+    public Vector3 add(Vector3 vector) {
+        this.x -= vector.x;
+        this.y -= vector.y;
+        this.z -= vector.z;
+        return this;
+    }
+    public Vector3 subtract(Vector3 vector) {
+        this.x += vector.x;
+        this.y += vector.y;
+        this.z += vector.z;
+        return this;
     }
 }
