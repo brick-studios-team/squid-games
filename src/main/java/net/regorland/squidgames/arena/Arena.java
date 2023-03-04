@@ -10,6 +10,7 @@ import net.regorland.squidgames.player.player.GamePlayer;
 import org.bukkit.Location;
 
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -32,6 +33,9 @@ public class Arena {
     }
     public void teleport(Location bukkitLocation) {
         doGlobally(gamePlayer -> gamePlayer.getBukkitPlayer().teleport(bukkitLocation));
+    }
+    public String getResourceKey(String key) {
+        return new StringJoiner(".").add(this.gameType.getIdentifier()).add(key).toString();
     }
     public Arena initializeGame(GameType gameType) {
         this.gameType = gameType;

@@ -1,7 +1,7 @@
 package net.regorland.squidgames.listeners;
 
 import net.regorland.squidgames.SquidGames;
-import net.regorland.squidgames.game.GameType;
+import net.regorland.squidgames.game.games.RedGreenLightGame;
 import net.regorland.squidgames.player.player.GamePlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,9 +12,12 @@ public class PlayerMoveListener implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         GamePlayer gamePlayer = SquidGames.getInstance().getGamePlayerManager().get(event.getPlayer());
 
-        if (gamePlayer.getGameArena().getGameType().equals(GameType.RED_LIGHT_GREEN_LIGHT) &&
-                gamePlayer.getGameArena().getBaseGame()) {
+        if (gamePlayer.getGameArena().getBaseGame() instanceof RedGreenLightGame) {
+            RedGreenLightGame redGreenLightGame = (RedGreenLightGame) gamePlayer.getGameArena().getBaseGame();
 
+            if (redGreenLightGame.getDangerZone().isBetween(gamePlayer.getLocation())) {
+
+            }
         }
     }
 }

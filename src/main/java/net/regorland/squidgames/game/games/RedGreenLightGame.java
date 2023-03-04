@@ -41,6 +41,6 @@ public class RedGreenLightGame extends BaseGame {
     }
 
     public Cuboid getDangerZone() {
-        return SquidGames.getInstance().getLocationsConfiguration().getCuboid()
+        return SquidGames.getInstance().getLocationsConfiguration().getCuboid(this.arena.getResourceKey("danger_zone"));
     }
 }
