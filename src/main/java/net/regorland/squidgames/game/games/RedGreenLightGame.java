@@ -1,10 +1,11 @@
 package net.regorland.squidgames.game.games;
 
+import net.regorland.squidgames.SquidGames;
 import net.regorland.squidgames.arena.Arena;
 import net.regorland.squidgames.game.BaseGame;
-import net.regorland.squidgames.game.GameActions;;
+import net.regorland.squidgames.region.Cuboid;
 
-public class RedGreenLightGame extends BaseGame implements GameActions {
+public class RedGreenLightGame extends BaseGame {
     public RedGreenLightGame(Arena arena) {
         super(arena);
     }
@@ -37,5 +38,9 @@ public class RedGreenLightGame extends BaseGame implements GameActions {
     @Override
     public void onPlayerDeath() {
 
+    }
+
+    public Cuboid getDangerZone() {
+        return SquidGames.getInstance().getLocationsConfiguration().getCuboid()
     }
 }

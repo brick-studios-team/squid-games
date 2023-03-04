@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.regorland.squidgames.SquidGames;
+import net.regorland.squidgames.game.BaseGame;
+import net.regorland.squidgames.game.GameType;
 import net.regorland.squidgames.player.player.GamePlayer;
 import org.bukkit.Location;
 
@@ -14,10 +16,12 @@ import java.util.stream.Collectors;
 @Accessors(chain = true)
 public class Arena {
     @Getter @Setter private ArenaState arenaState;
-    @Getter @Setter private ArenaType arenaType;
+    @Getter @Setter private GameType gameType;
+    @Getter @Setter private BaseGame baseGame;
 
     public Arena() {
         this.arenaState = ArenaState.WAITING;
+
     }
     public List<GamePlayer> getPlayers() {
         return SquidGames.getInstance().getGamePlayerManager().getList().stream()
@@ -28,5 +32,16 @@ public class Arena {
     }
     public void teleport(Location bukkitLocation) {
         doGlobally(gamePlayer -> gamePlayer.getBukkitPlayer().teleport(bukkitLocation));
+    }
+    public Arena initializeGame(GameType gameType) {
+        this.gameType = gameType;
+
+        try {
+            this.baseGame = (BaseGame) gameType.getBaseGame().newInstance();
+        } catch (InstantiationException | IllegalAccessException exception) {
+            throw new RuntimeException(exception);
+        }
+
+        return this;
     }
 }

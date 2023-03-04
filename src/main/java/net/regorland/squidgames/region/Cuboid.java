@@ -15,6 +15,14 @@ public class Cuboid {
         this.firstPoint = firstPoint;
         this.secondPoint = secondPoint;
     }
+    public Cuboid(Vector firstPoint, Vector secondPoint) {
+        this.firstPoint = new Vector3(firstPoint);
+        this.firstPoint = new Vector3(secondPoint);
+    }
+    public Cuboid(Location firstPoint, Location secondPoint) {
+        this.firstPoint = new Vector3(firstPoint);
+        this.firstPoint = new Vector3(secondPoint);
+    }
     public boolean isBetween(double x, double z) {
         double x1 = this.firstPoint.getX();
         double z1 = this.firstPoint.getZ();

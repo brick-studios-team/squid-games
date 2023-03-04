@@ -101,8 +101,8 @@ public class Configuration extends YamlConfiguration {
     }
 
     public Cuboid getCuboid(String key) {
-        return new Cuboid(getLocation(new StringJoiner(".").add(key).add("first_point").toString()).toVector(),
-                getLocation(new StringJoiner(".").add(key).add("second_point").toString()).toVector());
+        return new Cuboid(getLocation(new StringJoiner(".").add(key).add("first_point").toString()),
+                getLocation(new StringJoiner(".").add(key).add("second_point").toString()));
     }
 
     public Location getLocation(String key) {

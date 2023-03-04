@@ -3,6 +3,7 @@ package net.regorland.squidgames.region;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
 @Accessors(chain = true)
@@ -15,6 +16,16 @@ public class Vector3 {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+    public Vector3(Vector bukkitVector) {
+        this.x = bukkitVector.getX();
+        this.y = bukkitVector.getY();
+        this.z = bukkitVector.getZ();
+    }
+    public Vector3(Location bukkitLocation) {
+        this.x = bukkitLocation.getX();
+        this.y = bukkitLocation.getY();
+        this.z = bukkitLocation.getZ();
     }
 
     public Vector3 clone() {

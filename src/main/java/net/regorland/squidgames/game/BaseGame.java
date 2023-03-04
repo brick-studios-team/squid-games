@@ -6,7 +6,7 @@ import org.bukkit.Location;
 
 import java.util.StringJoiner;
 
-public class BaseGame {
+public abstract class BaseGame implements GameActions {
     protected final Arena arena;
 
     protected final Location spawnLocation;
@@ -15,6 +15,6 @@ public class BaseGame {
         this.arena = arena;
 
         this.spawnLocation = SquidGames.getInstance().getLocationsConfiguration().getLocation(
-                new StringJoiner(".").add("games").add("spawn").add(arena.getArenaType().getIdentifier()).toString());
+                new StringJoiner(".").add("games").add("spawn").add(arena.getGameType().getIdentifier()).toString());
     }
 }
