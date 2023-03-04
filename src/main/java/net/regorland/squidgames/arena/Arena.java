@@ -1,4 +1,4 @@
-package net.regorland.squidgames.game;
+package net.regorland.squidgames.arena;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class GameArena {
-    @Getter @Setter private GameState gameState;
-    @Getter @Setter private GameType gameType;
+public class Arena {
+    @Getter @Setter private ArenaState gameState;
+    @Getter @Setter private ArenaType gameType;
 
-    public GameArena() {
-        this.gameState = GameState.WAITING;
+    public Arena() {
+        this.gameState = ArenaState.WAITING;
     }
     public List<GamePlayer> getPlayers() {
         return SquidGames.getInstance().getGamePlayerManager().getList().stream()
