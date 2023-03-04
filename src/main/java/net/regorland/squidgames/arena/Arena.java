@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 
 @Accessors(chain = true)
 public class Arena {
-    @Getter @Setter private ArenaState gameState;
-    @Getter @Setter private ArenaType gameType;
+    @Getter @Setter private ArenaState arenaState;
+    @Getter @Setter private ArenaType arenaType;
 
     public Arena() {
-        this.gameState = ArenaState.WAITING;
+        this.arenaState = ArenaState.WAITING;
     }
     public List<GamePlayer> getPlayers() {
         return SquidGames.getInstance().getGamePlayerManager().getList().stream()

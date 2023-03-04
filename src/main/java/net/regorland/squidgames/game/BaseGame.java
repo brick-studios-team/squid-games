@@ -1,17 +1,19 @@
 package net.regorland.squidgames.game;
 
-public interface BaseGame {
-    /*
-    Actions that are triggered by game events
-     */
-    void onSpawn();
-    void onStart();
-    void onEnd();
-    void onTimeUp();
-    void onSkip();
+import net.regorland.squidgames.SquidGames;
+import net.regorland.squidgames.arena.Arena;
+import org.bukkit.Location;
 
-    /*
-    Actions that are triggered by player events
-     */
-    void onPlayerDeath();
+import java.util.StringJoiner;
+
+public class BaseGame {
+    protected final Arena arena;
+
+    public BaseGame(Arena arena) {
+        this.arena = arena;
+    }
+    protected Location getSpawn() {
+        return SquidGames.getInstance().getLocationsConfiguration().getLocation(
+                new StringJoiner(".").add("games").add("spawn").add(arena.getArenaType().getIdentifier()).toString());
+    }
 }

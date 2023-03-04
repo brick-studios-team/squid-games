@@ -13,12 +13,12 @@ public class ChangeGameTypeTask {
 
     public ChangeGameTypeTask(Arena arena) {
         new DelayedTask(() -> {
-            ArenaType arenaType = Optional.ofNullable(arena.getGameType())
+            ArenaType arenaType = Optional.ofNullable(arena.getArenaType())
                     .map(value -> gameTypeList.get(gameTypeList.size() < value.ordinal() ? value.ordinal() + 1 : 0))
                     .orElse(ArenaType.RED_LIGHT_GREEN_LIGHT);
 
             try {
-                arena.setGameType(arenaType).getGameType().getBaseGame().newInstance().onSpawn();
+                arena.setArenaType(arenaType).getArenaType().getBaseGame().newInstance().onSpawn();
             } catch (InstantiationException | IllegalAccessException exception) {
                 throw new RuntimeException(exception);
             }
