@@ -1,14 +1,14 @@
 package net.regorland.squidgames.region;
 
 import lombok.Getter;
-import org.bukkit.util.Vector;
 
 public class Cuboid {
-    @Getter private final Vector firstPoint;
-    @Getter private final Vector secondPoint;
+    @Getter private final Vector3 firstPoint;
+    @Getter private final Vector3 secondPoint;
 
-    public Cuboid(Vector firstPoint, Vector secondPoint) {
+    public Cuboid(Vector3 firstPoint, Vector3 secondPoint) {
         this.firstPoint = firstPoint;
         this.secondPoint = secondPoint;
     }
+
 }
