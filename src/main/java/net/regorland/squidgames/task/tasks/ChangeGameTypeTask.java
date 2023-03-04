@@ -11,13 +11,17 @@ import java.util.Optional;
 public class ChangeGameTypeTask {
     private static final List<ArenaType> gameTypeList = Arrays.asList(ArenaType.values());
 
-    public ChangeGameTypeTask(Arena gameArena) {
+    public ChangeGameTypeTask(Arena arena) {
         new DelayedTask(() -> {
-            ArenaType gameType = Optional.ofNullable(gameArena.getGameType())
+            ArenaType arenaType = Optional.ofNullable(arena.getGameType())
                     .map(value -> gameTypeList.get(gameTypeList.size() < value.ordinal() ? value.ordinal() + 1 : 0))
                     .orElse(ArenaType.RED_LIGHT_GREEN_LIGHT);
 
-            gameArena.setGameType(gameType);
+            try {
+                arena.setGameType(arenaType).getGameType().getBaseGame().newInstance().onSpawn();
+            } catch (InstantiationException | IllegalAccessException exception) {
+                throw new RuntimeException(exception);
+            }
         }, 60);
     }
 }

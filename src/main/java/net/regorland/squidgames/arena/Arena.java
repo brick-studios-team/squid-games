@@ -2,6 +2,7 @@ package net.regorland.squidgames.arena;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.regorland.squidgames.SquidGames;
 import net.regorland.squidgames.player.player.GamePlayer;
 import org.bukkit.Location;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+@Accessors(chain = true)
 public class Arena {
     @Getter @Setter private ArenaState gameState;
     @Getter @Setter private ArenaType gameType;
