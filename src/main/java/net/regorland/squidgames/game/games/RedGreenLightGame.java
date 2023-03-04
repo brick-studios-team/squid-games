@@ -4,6 +4,8 @@ import net.regorland.squidgames.arena.Arena;
 import net.regorland.squidgames.game.BaseGame;
 
 public class RedGreenLightGame extends BaseGame {
+    private boolean canMove;
+
     public RedGreenLightGame(Arena arena) {
         super(arena);
     }
@@ -15,7 +17,6 @@ public class RedGreenLightGame extends BaseGame {
 
     @Override
     public void onStart() {
-
     }
 
     @Override
