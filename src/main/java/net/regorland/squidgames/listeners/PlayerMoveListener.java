@@ -16,8 +16,8 @@ public class PlayerMoveListener implements Listener {
         if (gamePlayer.getGameArena().getBaseGame() instanceof RedGreenLightGame) {
             RedGreenLightGame redGreenLightGame = (RedGreenLightGame) gamePlayer.getGameArena().getBaseGame();
 
-            if (redGreenLightGame.getZone(GameZoneType.RED_GREEN_LIGHT_KILL_ZONE).isBetween(gamePlayer.getLocation())) {
-
+            if (redGreenLightGame.getZone(GameZoneType.RED_GREEN_LIGHT_KILL_ZONE).isBetween(gamePlayer.getLocation()) && !redGreenLightGame.isCanMove()) {
+                //
             }
         }
     }
