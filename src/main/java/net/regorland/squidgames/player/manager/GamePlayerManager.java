@@ -3,8 +3,7 @@ package net.regorland.squidgames.player.manager;
 import net.regorland.squidgames.player.player.GamePlayer;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public class GamePlayerManager {
     private final HashMap<UUID, GamePlayer> gamePlayerMap;
@@ -18,5 +17,8 @@ public class GamePlayerManager {
     }
     public GamePlayer destroy(Player player) {
         return gamePlayerMap.remove(player.getUniqueId());
+    }
+    public Collection<GamePlayer> getList() {
+        return gamePlayerMap.values();
     }
 }
