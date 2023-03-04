@@ -2,6 +2,7 @@ package net.regorland.squidgames.region;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.util.Vector;
 
 public class Vector3 {
     @Getter @Setter private double x;
@@ -12,5 +13,12 @@ public class Vector3 {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public Vector3 clone() {
+        return new Vector3(this.getX(), this.getX(), this.getZ());
+    }
+    public Vector toBukkitVector() {
+        return new Vector(this.getX(), this.getX(), this.getZ());
     }
 }
