@@ -2,6 +2,7 @@ package net.regorland.squidgames.game;
 
 import net.regorland.squidgames.SquidGames;
 import net.regorland.squidgames.arena.Arena;
+import net.regorland.squidgames.region.Cuboid;
 import org.bukkit.Location;
 
 import java.util.StringJoiner;
@@ -16,5 +17,8 @@ public abstract class BaseGame implements GameActions {
 
         this.spawnLocation = SquidGames.getInstance().getLocationsConfiguration().getLocation(
                 new StringJoiner(".").add("games").add("spawn").add(arena.getGameType().getIdentifier()).toString());
+    }
+    public Cuboid getZone(GameZoneType gameZoneType) {
+        return SquidGames.getInstance().getLocationsConfiguration().getCuboid(this.arena.getResourceKey(gameZoneType.getIdentifier()));
     }
 }
