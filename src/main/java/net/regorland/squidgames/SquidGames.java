@@ -1,13 +1,16 @@
 package net.regorland.squidgames;
 
+import lombok.Getter;
+import net.regorland.squidgames.player.manager.GamePlayerManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SquidGames extends JavaPlugin {
 
+    @Getter private GamePlayerManager gamePlayerManager;
+
     @Override
     public void onEnable() {
-        // Plugin startup logic
-
+        this.gamePlayerManager = new GamePlayerManager();
     }
 
     @Override
