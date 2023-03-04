@@ -2,7 +2,7 @@ package net.regorland.squidgames.game.games;
 
 import net.regorland.squidgames.arena.Arena;
 import net.regorland.squidgames.game.BaseGame;
-import net.regorland.squidgames.game.GameActions;
+import net.regorland.squidgames.game.GameActions;;
 
 public class RedGreenLightGame extends BaseGame implements GameActions {
     public RedGreenLightGame(Arena arena) {
@@ -11,7 +11,7 @@ public class RedGreenLightGame extends BaseGame implements GameActions {
 
     @Override
     public void onSpawn() {
-        arena.teleport(getSpawn());
+        arena.teleport(this.spawnLocation);
     }
 
     @Override

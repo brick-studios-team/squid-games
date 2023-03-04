@@ -9,11 +9,12 @@ import java.util.StringJoiner;
 public class BaseGame {
     protected final Arena arena;
 
+    protected final Location spawnLocation;
+
     public BaseGame(Arena arena) {
         this.arena = arena;
-    }
-    protected Location getSpawn() {
-        return SquidGames.getInstance().getLocationsConfiguration().getLocation(
+
+        this.spawnLocation = SquidGames.getInstance().getLocationsConfiguration().getLocation(
                 new StringJoiner(".").add("games").add("spawn").add(arena.getArenaType().getIdentifier()).toString());
     }
 }

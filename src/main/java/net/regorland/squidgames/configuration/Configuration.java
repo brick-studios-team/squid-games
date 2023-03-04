@@ -3,7 +3,9 @@ package net.regorland.squidgames.configuration;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.StringJoiner;
 
+import net.regorland.squidgames.region.Cuboid;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -96,6 +98,11 @@ public class Configuration extends YamlConfiguration {
         float yaw = (float) this.getDouble(key + ".yaw");
 
         return new Location(world, x, y, z, yaw, pitch);
+    }
+
+    public Cuboid getCuboid(String key) {
+        return new Cuboid(getLocation(new StringJoiner(".").add(key).add("first_point").toString()).toVector(),
+                getLocation(new StringJoiner(".").add(key).add("second_point").toString()).toVector());
     }
 
     public Location getLocation(String key) {
