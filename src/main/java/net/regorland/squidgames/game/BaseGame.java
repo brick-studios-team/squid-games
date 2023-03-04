@@ -1,27 +1,17 @@
 package net.regorland.squidgames.game;
 
-public class BaseGame {
-    public BaseGame() {
+public interface BaseGame {
+    /*
+    Actions that are triggered by game events
+     */
+    void onSpawn();
+    void onStart();
+    void onEnd();
+    void onTimeUp();
+    void onSkip();
 
-    }
-
-    public void onSpawn() {
-
-    }
-    public void onStart() {
-
-    }
-    public void onEnd() {
-
-    }
-    public void onTimeUp() {
-
-    }
-    public void onSkip() {
-
-    }
-
-    public void onPlayerDeath() {
-
-    }
+    /*
+    Actions that are triggered by player events
+     */
+    void onPlayerDeath();
 }
