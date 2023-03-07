@@ -9,7 +9,7 @@ import net.regorland.squidgames.task.DelayedTask;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RedGreenLightGame extends BaseGame {
-    @Getter private boolean canMove = true;
+    @Getter private boolean canMove;
 
     public RedGreenLightGame(Arena arena) {
         super(arena);

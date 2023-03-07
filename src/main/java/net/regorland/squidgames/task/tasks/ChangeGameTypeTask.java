@@ -17,7 +17,7 @@ public class ChangeGameTypeTask {
                     .map(value -> gameTypeList.get(gameTypeList.size() < value.ordinal() ? value.ordinal() + 1 : 0))
                     .orElse(GameType.RED_LIGHT_GREEN_LIGHT);
 
-            arena.initializeGame(gameType).getBaseGame().onSpawn();
+            arena.getBaseGame().onSpawn();
         }, 60);
     }
 }
