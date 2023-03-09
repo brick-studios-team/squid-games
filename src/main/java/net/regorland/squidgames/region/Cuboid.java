@@ -6,6 +6,9 @@ import lombok.experimental.Accessors;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Accessors(chain = true)
 public class Cuboid {
     @Getter @Setter private Vector3 firstPoint;
@@ -40,5 +43,18 @@ public class Cuboid {
     }
     public boolean isBetween(Location bukkitLocation) {
         return isBetween(bukkitLocation.getX(), bukkitLocation.getZ());
+    }
+    public List<Vector3> getVectorList() {
+        List<Vector3> vector3List = new ArrayList<>();
+
+        for (int x = (int) Math.min(firstPoint.getX(), secondPoint.getX()); x <= Math.max(firstPoint.getX(), secondPoint.getX()); x++) {
+            for (int y = (int) Math.min(firstPoint.getY(), secondPoint.getY()); y <= Math.max(firstPoint.getY(), secondPoint.getY()); y++) {
+                for (int z = (int) Math.min(firstPoint.getZ(), secondPoint.getZ()); z <= Math.max(firstPoint.getZ(), secondPoint.getZ()); z++) {
+                    vector3List.add(new Vector3(x, y, z));
+                }
+            }
+        }
+
+        return vector3List;
     }
 }
