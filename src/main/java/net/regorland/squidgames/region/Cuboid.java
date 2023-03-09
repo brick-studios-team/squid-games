@@ -4,10 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Accessors(chain = true)
 public class Cuboid {
@@ -56,5 +59,13 @@ public class Cuboid {
         }
 
         return vector3List;
+    }
+    public List<Location> getLocationList(World world) {
+        return this.getVectorList().stream().map(vector3 -> new Location(world, vector3.getX(), vector3.getY(), vector3.getZ())).collect(Collectors.toList());
+    }
+    public void fill(World world, Material material) {
+        this.getLocationList(world).forEach(location -> {
+            world.getBlockAt(location).setType(material);
+        });
     }
 }
