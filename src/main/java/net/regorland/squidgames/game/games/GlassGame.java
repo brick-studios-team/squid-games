@@ -13,6 +13,10 @@ package net.regorland.squidgames.game.games;
 import net.regorland.squidgames.arena.Arena;
 import net.regorland.squidgames.game.BaseGame;
 import net.regorland.squidgames.region.Cuboid;
+import org.bukkit.Location;
+import org.bukkit.util.Vector;
+
+import java.util.stream.IntStream;
 
 public class GlassGame extends BaseGame {
     public GlassGame(Arena arena) {
@@ -26,7 +30,14 @@ public class GlassGame extends BaseGame {
 
     @Override
     public void onStart() {
-        new Cuboid()
+        IntStream.range(0, 1).forEach(index -> {
+            Location glassLocation = this.getLocation("glass-generation")
+                    .add(new Vector(index * this.getConfigurationSection().getInt("glass-separation"), 0, 0));
+            int cuboidSize = this.getConfigurationSection().getInt("size");
+
+            new Cuboid(glassLocation, glassLocation.add(new Vector(cuboidSize, 0, cuboidSize)));
+            new Cuboid(glassLocation, glassLocation.add(new Vector(cuboidSize, 0, cuboidSize)));
+        });
     }
 
     @Override
