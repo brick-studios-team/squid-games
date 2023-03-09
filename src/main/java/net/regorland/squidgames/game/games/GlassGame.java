@@ -30,13 +30,15 @@ public class GlassGame extends BaseGame {
 
     @Override
     public void onStart() {
-        IntStream.range(0, 1).forEach(index -> {
-            Location glassLocation = this.getLocation("glass-generation")
-                    .add(new Vector(index * this.getConfigurationSection().getInt("glass-separation"), 0, 0));
-            int cuboidSize = this.getConfigurationSection().getInt("size");
+        IntStream.range(0, this.getConfigurationSection().getInt("glass-platforms")).forEach(platform -> {
+            IntStream.range(0, 1).forEach(index -> {
+                Location glassLocation = this.getLocation("glass-generation").add(new Vector(index * this.getConfigurationSection()
+                                .getInt("glass-separation-aisle"), 0, platform * this.getConfigurationSection().getInt("glass-separation-platforms")));
+                int cuboidSize = this.getConfigurationSection().getInt("size");
 
-            new Cuboid(glassLocation, glassLocation.add(new Vector(cuboidSize, 0, cuboidSize)));
-            new Cuboid(glassLocation, glassLocation.add(new Vector(cuboidSize, 0, cuboidSize)));
+                new Cuboid(glassLocation, glassLocation.add(new Vector(cuboidSize, 0, cuboidSize)));
+                new Cuboid(glassLocation, glassLocation.add(new Vector(cuboidSize, 0, cuboidSize)));
+            });
         });
     }
 
