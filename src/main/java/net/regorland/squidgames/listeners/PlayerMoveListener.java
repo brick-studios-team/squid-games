@@ -5,9 +5,14 @@ import net.regorland.squidgames.game.GameZoneType;
 import net.regorland.squidgames.game.games.GlassGame;
 import net.regorland.squidgames.game.games.RedGreenLightGame;
 import net.regorland.squidgames.player.player.GamePlayer;
+import net.regorland.squidgames.region.Cuboid;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+
+import java.util.Objects;
+import java.util.Optional;
 
 public class PlayerMoveListener implements Listener {
     @EventHandler
@@ -18,15 +23,17 @@ public class PlayerMoveListener implements Listener {
             RedGreenLightGame redGreenLightGame = (RedGreenLightGame) gamePlayer.getGameArena().getBaseGame();
 
             if (redGreenLightGame.getZone(GameZoneType.RED_GREEN_LIGHT_KILL_ZONE).isBetween(gamePlayer.getLocation()) && !redGreenLightGame.isCanMove()) {
-                //
+                gamePlayer.kill();
             }
         }
 
         if (gamePlayer.getGameArena().getBaseGame() instanceof GlassGame) {
             GlassGame glassGame = (GlassGame) gamePlayer.getGameArena().getBaseGame();
 
-            if (glassGame.getDangerousBlockList().contains(gamePlayer.getBukkitPlayer().getLocation().subtract(0, 1, 0).getBlock())) {
-                //
+            if (!Objects.isNull(glassGame.getDangerousCuboidList())) {
+                glassGame.getDangerousCuboidList().stream().filter(target -> target.isBetween(gamePlayer.getBukkitPlayer().getLocation())).findFirst().ifPresent(cuboid -> {
+                    cuboid.fill(gamePlayer.getBukkitPlayer().getLocation().getWorld(), Material.AIR);
+                });
             }
         }
     }

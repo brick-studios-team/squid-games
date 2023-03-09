@@ -16,19 +16,22 @@ import net.regorland.squidgames.game.BaseGame;
 import net.regorland.squidgames.region.Cuboid;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.IntStream;
 
 public class GlassGame extends BaseGame {
-    @Getter private List<Block> dangerousBlockList;
+    @Getter private final List<Cuboid> dangerousCuboidList;
+    @Getter private Location glassLocation;
 
     public GlassGame(Arena arena) {
         super(arena);
+
+        this.dangerousCuboidList = new ArrayList<>();
     }
 
     @Override
@@ -42,15 +45,13 @@ public class GlassGame extends BaseGame {
             AtomicBoolean isWalkable = new AtomicBoolean(ThreadLocalRandom.current().nextBoolean());
 
             IntStream.range(0, 1).forEach(index -> {
-                Location glassLocation = this.getLocation("glass-generation").add(new Vector(index * this.configurationSection
+                glassLocation = this.getLocation("glass-generation").add(new Vector(index * this.configurationSection
                                 .getInt("glass-separation-aisle"), 0, platform * this.configurationSection.getInt("glass-separation-platforms")));
                 int cuboidSize = this.configurationSection.getInt("size");
 
-                Cuboid cuboid = new Cuboid(glassLocation, glassLocation.add(new Vector(cuboidSize, 0, cuboidSize)))
-                        .fill(glassLocation.getWorld(), Material.GLASS);
-
                 if (!isWalkable.get()) {
-                    dangerousBlockList = cuboid.getBlockList(glassLocation.getWorld());
+                    dangerousCuboidList.add(new Cuboid(glassLocation, glassLocation.add(new Vector(cuboidSize, 0, cuboidSize)))
+                            .fill(glassLocation.getWorld(), Material.GLASS));
                 }
 
                 isWalkable.set(!isWalkable.get());

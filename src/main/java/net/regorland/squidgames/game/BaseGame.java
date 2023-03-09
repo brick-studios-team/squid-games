@@ -1,5 +1,6 @@
 package net.regorland.squidgames.game;
 
+import lombok.Getter;
 import net.regorland.squidgames.SquidGames;
 import net.regorland.squidgames.arena.Arena;
 import net.regorland.squidgames.region.Cuboid;
@@ -9,7 +10,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import java.util.StringJoiner;
 
 public abstract class BaseGame implements GameActions {
-    protected final Arena arena;
+    @Getter protected final Arena arena;
     protected final ConfigurationSection configurationSection;
 
     protected final Location spawnLocation;

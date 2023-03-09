@@ -20,4 +20,7 @@ public class GamePlayer {
     public void sendTitle(String key) {
 
     }
+    public void kill() {
+        this.bukkitPlayer.setHealth(0);
+    }
 }
