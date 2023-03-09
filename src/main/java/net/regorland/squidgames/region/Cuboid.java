@@ -6,6 +6,7 @@ import lombok.experimental.Accessors;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -62,6 +63,9 @@ public class Cuboid {
     }
     public List<Location> getLocationList(World world) {
         return this.getVectorList().stream().map(vector3 -> new Location(world, vector3.getX(), vector3.getY(), vector3.getZ())).collect(Collectors.toList());
+    }
+    public List<Block> getBlockList(World world) {
+        return this.getLocationList(world).stream().map(location -> location.getWorld().getBlockAt(location)).collect(Collectors.toList());
     }
     public Cuboid fill(World world, Material material) {
         this.getLocationList(world).forEach(location -> {

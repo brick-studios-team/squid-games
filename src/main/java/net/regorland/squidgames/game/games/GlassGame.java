@@ -10,18 +10,23 @@
 
 package net.regorland.squidgames.game.games;
 
+import lombok.Getter;
 import net.regorland.squidgames.arena.Arena;
 import net.regorland.squidgames.game.BaseGame;
 import net.regorland.squidgames.region.Cuboid;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.IntStream;
 
 public class GlassGame extends BaseGame {
+    @Getter private List<Block> dangerousBlockList;
+
     public GlassGame(Arena arena) {
         super(arena);
     }
@@ -41,8 +46,13 @@ public class GlassGame extends BaseGame {
                                 .getInt("glass-separation-aisle"), 0, platform * this.configurationSection.getInt("glass-separation-platforms")));
                 int cuboidSize = this.configurationSection.getInt("size");
 
-                new Cuboid(glassLocation, glassLocation.add(new Vector(cuboidSize, 0, cuboidSize)))
-                        .fill(glassLocation.getWorld(), isWalkable.get() ? Material.GLASS : Material.STONE);
+                Cuboid cuboid = new Cuboid(glassLocation, glassLocation.add(new Vector(cuboidSize, 0, cuboidSize)))
+                        .fill(glassLocation.getWorld(), Material.GLASS);
+
+                if (!isWalkable.get()) {
+                    dangerousBlockList = cuboid.getBlockList(glassLocation.getWorld());
+                }
+
                 isWalkable.set(!isWalkable.get());
             });
         });
