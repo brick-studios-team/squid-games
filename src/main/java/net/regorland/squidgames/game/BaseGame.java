@@ -11,7 +11,7 @@ import java.util.StringJoiner;
 
 public abstract class BaseGame implements GameActions {
     @Getter protected final Arena arena;
-    protected final ConfigurationSection configurationSection;
+    @Getter protected final ConfigurationSection configurationSection;
 
     protected final Location spawnLocation;
 

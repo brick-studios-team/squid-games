@@ -32,8 +32,12 @@ public class PlayerMoveListener implements Listener {
 
             if (!Objects.isNull(glassGame.getDangerousCuboidList())) {
                 glassGame.getDangerousCuboidList().stream().filter(target -> target.isBetween(gamePlayer.getBukkitPlayer().getLocation())).findFirst().ifPresent(cuboid -> {
-                    cuboid.fill(gamePlayer.getBukkitPlayer().getLocation().getWorld(), Material.AIR);
+                    cuboid.makeFallingBlock(gamePlayer.getBukkitPlayer().getLocation().getWorld());
                 });
+            }
+
+            if (event.getTo().getY() < glassGame.getConfigurationSection().getInt("death-height")) {
+                gamePlayer.kill();
             }
         }
     }
