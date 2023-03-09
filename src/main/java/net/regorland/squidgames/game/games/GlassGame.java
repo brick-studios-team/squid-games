@@ -14,8 +14,11 @@ import net.regorland.squidgames.arena.Arena;
 import net.regorland.squidgames.game.BaseGame;
 import net.regorland.squidgames.region.Cuboid;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.util.Vector;
 
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.IntStream;
 
 public class GlassGame extends BaseGame {
@@ -30,14 +33,17 @@ public class GlassGame extends BaseGame {
 
     @Override
     public void onStart() {
-        IntStream.range(0, this.getConfigurationSection().getInt("glass-platforms")).forEach(platform -> {
-            IntStream.range(0, 1).forEach(index -> {
-                Location glassLocation = this.getLocation("glass-generation").add(new Vector(index * this.getConfigurationSection()
-                                .getInt("glass-separation-aisle"), 0, platform * this.getConfigurationSection().getInt("glass-separation-platforms")));
-                int cuboidSize = this.getConfigurationSection().getInt("size");
+        IntStream.range(0, this.configurationSection.getInt("glass-platforms")).forEach(platform -> {
+            AtomicBoolean isWalkable = new AtomicBoolean(ThreadLocalRandom.current().nextBoolean());
 
-                new Cuboid(glassLocation, glassLocation.add(new Vector(cuboidSize, 0, cuboidSize)));
-                new Cuboid(glassLocation, glassLocation.add(new Vector(cuboidSize, 0, cuboidSize)));
+            IntStream.range(0, 1).forEach(index -> {
+                Location glassLocation = this.getLocation("glass-generation").add(new Vector(index * this.configurationSection
+                                .getInt("glass-separation-aisle"), 0, platform * this.configurationSection.getInt("glass-separation-platforms")));
+                int cuboidSize = this.configurationSection.getInt("size");
+
+                new Cuboid(glassLocation, glassLocation.add(new Vector(cuboidSize, 0, cuboidSize)))
+                        .fill(glassLocation.getWorld(), isWalkable.get() ? Material.GLASS : Material.STONE);
+                isWalkable.set(!isWalkable.get());
             });
         });
     }

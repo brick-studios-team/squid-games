@@ -63,9 +63,11 @@ public class Cuboid {
     public List<Location> getLocationList(World world) {
         return this.getVectorList().stream().map(vector3 -> new Location(world, vector3.getX(), vector3.getY(), vector3.getZ())).collect(Collectors.toList());
     }
-    public void fill(World world, Material material) {
+    public Cuboid fill(World world, Material material) {
         this.getLocationList(world).forEach(location -> {
             world.getBlockAt(location).setType(material);
         });
+
+        return this;
     }
 }
