@@ -26,6 +26,6 @@ public class GameCommand extends BaseCommand {
 
     @Subcommand("phase start")
     public void startPhase(Player player, GameType gameType) {
-        SquidGames.getInstance().getArena().setGameType(gameType).start();
+        SquidGames.getInstance().getArena().startGame(gameType);
     }
 }

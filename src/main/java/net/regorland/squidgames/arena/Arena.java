@@ -27,6 +27,16 @@ public class Arena {
         new ChangeGameTypeTask(this);
     }
 
+    public void startGame(GameType gameType) {
+        this.gameType = gameType;
+
+        try {
+            this.baseGame = (BaseGame) gameType.getBaseGame().newInstance();
+        } catch (InstantiationException | IllegalAccessException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
     public List<GamePlayer> getPlayers() {
         return SquidGames.getInstance().getGamePlayerManager().getList().stream()
                 .filter(target -> target.getGameArena().equals(this)).collect(Collectors.toList());
