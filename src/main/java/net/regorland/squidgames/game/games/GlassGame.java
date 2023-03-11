@@ -11,15 +11,20 @@
 package net.regorland.squidgames.game.games;
 
 import lombok.Getter;
+import net.regorland.squidgames.SquidGames;
 import net.regorland.squidgames.arena.Arena;
 import net.regorland.squidgames.game.BaseGame;
+import net.regorland.squidgames.player.player.GamePlayer;
 import net.regorland.squidgames.region.Cuboid;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.IntStream;
@@ -77,5 +82,20 @@ public class GlassGame extends BaseGame {
     @Override
     public void onPlayerDeath() {
 
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        GamePlayer gamePlayer = SquidGames.getInstance().getGamePlayerManager().get(event.getPlayer());
+
+        if (!Objects.isNull(this.getDangerousCuboidList())) {
+            this.getDangerousCuboidList().stream().filter(target -> target.isBetween(gamePlayer.getBukkitPlayer().getLocation())).findFirst().ifPresent(cuboid -> {
+                cuboid.makeFallingBlock(gamePlayer.getBukkitPlayer().getLocation().getWorld());
+            });
+        }
+
+        if (event.getTo().getY() < this.getConfigurationSection().getInt("death-height")) {
+            gamePlayer.kill();
+        }
     }
 }

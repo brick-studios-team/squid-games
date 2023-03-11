@@ -74,13 +74,12 @@ public class Cuboid {
 
         return this;
     }
-    public Cuboid makeFallingBlock(World world) {
+    public void makeFallingBlock(World world) {
         this.getLocationList(world).forEach(location -> {
             Block block = world.getBlockAt(location);
             world.spawnFallingBlock(location, block.getType(), (byte) 0);
             block.setType(Material.AIR);
         });
 
-        return this;
     }
 }

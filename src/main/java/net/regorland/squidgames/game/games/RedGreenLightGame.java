@@ -1,10 +1,15 @@
 package net.regorland.squidgames.game.games;
 
 import lombok.Getter;
+import net.regorland.squidgames.SquidGames;
 import net.regorland.squidgames.arena.Arena;
 import net.regorland.squidgames.game.BaseGame;
+import net.regorland.squidgames.game.GameZoneType;
+import net.regorland.squidgames.player.player.GamePlayer;
 import net.regorland.squidgames.task.BasicRepeatableTask;
 import net.regorland.squidgames.task.DelayedTask;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -57,5 +62,14 @@ public class RedGreenLightGame extends BaseGame {
     @Override
     public void onPlayerDeath() {
 
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        GamePlayer gamePlayer = SquidGames.getInstance().getGamePlayerManager().get(event.getPlayer());
+
+        if (this.getZone(GameZoneType.RED_GREEN_LIGHT_KILL_ZONE).isBetween(gamePlayer.getLocation()) && !this.isCanMove()) {
+            gamePlayer.kill();
+        }
     }
 }

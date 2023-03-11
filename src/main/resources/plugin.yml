@@ -1,5 +1,6 @@
-name: Squid Games
+name: Squid-Games
 version: '${project.version}'
 main: net.regorland.squidgames.SquidGames
 api-version: 1.19
 authors: [ Ailakks ]
+description: Squid Games plugin!
