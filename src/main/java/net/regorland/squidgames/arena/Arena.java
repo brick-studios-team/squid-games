@@ -10,6 +10,7 @@ import net.regorland.squidgames.player.player.GamePlayer;
 import net.regorland.squidgames.task.tasks.ChangeGameTypeTask;
 import org.bukkit.Location;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.function.Consumer;
@@ -31,8 +32,8 @@ public class Arena {
         this.gameType = gameType;
 
         try {
-            this.baseGame = (BaseGame) gameType.getBaseGame().newInstance();
-        } catch (InstantiationException | IllegalAccessException exception) {
+            this.baseGame = (BaseGame) gameType.getBaseGame().getConstructor(Arena.class).newInstance(this);
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException exception) {
             throw new RuntimeException(exception);
         }
     }
