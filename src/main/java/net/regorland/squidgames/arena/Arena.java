@@ -34,7 +34,7 @@ public class Arena {
         try {
             this.baseGame = (BaseGame) gameType.getBaseGame().getConstructor(Arena.class).newInstance(this);
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
+            throw new RuntimeException(exception.getCause());
         }
     }
 

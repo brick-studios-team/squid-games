@@ -4,6 +4,7 @@ import co.aikar.commands.PaperCommandManager;
 import lombok.Getter;
 import net.regorland.squidgames.arena.Arena;
 import net.regorland.squidgames.commands.GameCommand;
+import net.regorland.squidgames.commands.SetupCommand;
 import net.regorland.squidgames.configuration.Configuration;
 import net.regorland.squidgames.configuration.ConfigurationManager;
 import net.regorland.squidgames.player.manager.GamePlayerManager;
@@ -32,6 +33,7 @@ public final class SquidGames extends JavaPlugin {
         this.gamePlayerManager = new GamePlayerManager();
 
         this.paperCommandManager.registerCommand(new GameCommand());
+        this.paperCommandManager.registerCommand(new SetupCommand());
 
         this.locationsConfiguration = this.configurationManager.getConfig("locations.yml");
     }
