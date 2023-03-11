@@ -7,6 +7,7 @@ import net.regorland.squidgames.SquidGames;
 import net.regorland.squidgames.game.BaseGame;
 import net.regorland.squidgames.game.GameType;
 import net.regorland.squidgames.player.player.GamePlayer;
+import net.regorland.squidgames.task.tasks.ChangeGameTypeTask;
 import org.bukkit.Location;
 
 import java.util.List;
@@ -19,14 +20,11 @@ public class Arena {
     @Getter @Setter private GameType gameType;
     @Getter @Setter private BaseGame baseGame;
 
-    public Arena(GameType gameType) {
-        this.gameType = gameType;
+    public Arena() {
+    }
 
-        try {
-            this.baseGame = (BaseGame) gameType.getBaseGame().newInstance();
-        } catch (InstantiationException | IllegalAccessException exception) {
-            throw new RuntimeException(exception);
-        }
+    public void start() {
+        new ChangeGameTypeTask(this);
     }
 
     public List<GamePlayer> getPlayers() {
